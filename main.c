@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <pthread.h>
+#include <unistd.h>
 #include "thread_func.h"
 
-#define NUM_THREADS 2
+#define NUM_THREADS 100
 
 
 
@@ -15,16 +16,20 @@ int main()
     // create each thread
     pthread_t threads[NUM_THREADS];
 
-    //create flight thread
-    thr_id = pthread_create(&threads[0], NULL, &func1, NULL);
-    if(thr_id < 0){
-        perror("failure create thread");
+    for(int i=0; i < NUM_THREADS; i++){
+        /*create threads*/
+        thr_id = pthread_create(&threads[i], NULL, &func1, NULL);
+        if(thr_id < 0){
+            perror("failure create thread");
+        }
+        else {
+            printf("thread %d is created\n", i);
+        }
+        sleep(1);
     }
-    // create receiver thread
-    thr_id = pthread_create(&threads[1], NULL, &func1, NULL);
-    if(thr_id < 0){
-        perror("failure create thread");
-    }
+
+
+
 
     // wait for all of thread dead
     for (int i = 0; i < NUM_THREADS; i++) {
