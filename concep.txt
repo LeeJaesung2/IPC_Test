@@ -1,0 +1,20 @@
+Single Producer Single Consumer
+
+process1 - Producer, Consumer
+
+process2 - Producer, Consumer
+
+
+main{
+
+    create ipc1
+    create ipc2
+
+    create process1
+        create produer and conn ipc1
+        create consumer and conn ipc2
+
+    create process2
+        create produer and conn ipc2
+        create consumer and coon ipc1
+}
